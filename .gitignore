@@ -1,0 +1,4 @@
+node_modules
+liri-api-keys
+.DS_Store
+.env
