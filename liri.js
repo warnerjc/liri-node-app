@@ -70,6 +70,37 @@ function getTweets() {
 // function to display song information
 function getSong() {
 
+    if (args[1] === undefined) {
+        spotify
+            .request("https://api.spotify.com/v1/tracks/0hrBpAOgrt8RXigk83LLNE")
+            .then(function (data) {
+                console.log("Must be The Sign, cuz you didn't search for anything...");
+                console.log("");
+                console.log("Artist(s): " + data.artists[0].name);
+                console.log("Song Name: " + data.name);
+                console.log("Song Link: " + data.external_urls.spotify);
+                console.log("Song Album: " + data.album.name);
+            })
+            .catch(function (err) {
+                console.error('Error occurred: ' + err);
+            });
+    } else {
+        spotify.search({ type: "track", query: args[1] }, function (err, data) {
+            if (err) {
+                console.log('Error occurred: ' + err);
+            } else {
+                let songInfo = data.tracks.items[0];
+
+                console.log("Your search for " + args[1] + " returned the following song...");
+                console.log("");
+                console.log("Artist(s): " + songInfo.artists[0].name);
+                console.log("Song Name: " + songInfo.name);
+                console.log("Song Link: " + songInfo.external_urls.spotify);
+                console.log("Song Album: " + songInfo.album.name);
+            }
+        });
+    }
+
 }
 
 // function to display movie information
