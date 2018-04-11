@@ -155,6 +155,7 @@ require("dotenv").config();
 
    * This will show your last 20 tweets and when they were created at in your terminal/bash window.
 
+# DONE
 2. `node liri.js spotify-this-song '<song name here>'`
 
    * This will show the following information about the song in your terminal/bash window

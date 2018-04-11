@@ -106,6 +106,33 @@ function getSong() {
 // function to display movie information
 function getMovie() {
 
+    if (args[1] === undefined) {
+        request("http://www.omdbapi.com/?t=mr+nobody&y=&plot=short&apikey=trilogy", function (error, response, body) {
+
+            // If the request is successful (i.e. if the response status code is 200)
+            if (!error && response.statusCode === 200) {
+
+                // Parse the body of the site and recover just the imdbRating
+                // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+                console.log(`Movie Title: ${JSON.parse(body).Title} \nMovie Year: ${JSON.parse(body).Year} \nIMDB Rating: ${JSON.parse(body).Ratings[0].Value} \nRotten Tomatoes Rating: ${JSON.parse(body).Ratings[1].Value} \nCountry: ${JSON.parse(body).Country} \nLanguage: ${JSON.parse(body).Language} \nPlot: ${JSON.parse(body).Plot} \nActors: ${JSON.parse(body).Actors}`);
+            }
+        });
+    } else {
+
+        var myMovie = args[1].split(" ").join("+");
+
+        request("http://www.omdbapi.com/?t=" + myMovie + "&y=&plot=short&apikey=trilogy", function (error, response, body) {
+
+            // If the request is successful (i.e. if the response status code is 200)
+            if (!error && response.statusCode === 200) {
+
+                console.log(JSON.parse(body));
+
+                console.log(`Movie Title: ${JSON.parse(body).Title} \nMovie Year: ${JSON.parse(body).Year} \nIMDB Rating: ${JSON.parse(body).Ratings[0].Value} \nRotten Tomatoes Rating: ${JSON.parse(body).Ratings[1].Value} \nCountry: ${JSON.parse(body).Country} \nLanguage: ${JSON.parse(body).Language} \nPlot: ${JSON.parse(body).Plot} \nActors: ${JSON.parse(body).Actors}`);
+
+            }
+        });
+    }
 }
 
 // function to display action from random.txt
