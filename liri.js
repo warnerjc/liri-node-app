@@ -55,19 +55,39 @@ function getTweets() {
 
     };
 
-    console.log("Tweets from " + args[1] + ":");
-    console.log("");
+    if (args[1] === undefined) {
 
-    client.get('statuses/user_timeline', params, function (error, tweets, response) {
+        params.screen_name = "nodejs";
 
-        if (!error) {
-            for (let j = 0; j < tweets.length; j++) {
-                console.log(tweets[j].created_at + ": " + tweets[j].text);
+        console.log(`Tweets from ${params.screen_name}:`);
+        console.log(``);
+
+        client.get('statuses/user_timeline', params, function (error, tweets, response) {
+
+            if (!error) {
+                for (let j = 0; j < tweets.length; j++) {
+                    console.log(`${tweets[j].created_at}: ${tweets[j].text}`);
+                }
+            } else {
+                console.log(`Code ${error[0].code} - ${error[0].message}`);
             }
-        } else {
-            console.log("Code " + error[0].code + " - " + error[0].message);
-        }
-    });
+        });
+    } else {
+
+        console.log(`Tweets from ${args[1]}:`);
+        console.log(``);
+
+        client.get('statuses/user_timeline', params, function (error, tweets, response) {
+
+            if (!error) {
+                for (let j = 0; j < tweets.length; j++) {
+                    console.log(`${tweets[j].created_at}: ${tweets[j].text}`);
+                }
+            } else {
+                console.log(`Code ${error[0].code} - ${error[0].message}`);
+            }
+        });
+    }
 
 }
 
@@ -153,7 +173,7 @@ function getAction() {
         let dataArr = data.split(",");
 
         args[0] = dataArr[0];
-        args[1] = dataArr[1].replace(/"/g,"");
+        args[1] = dataArr[1].replace(/"/g, "");
 
         doThisAction();
 
