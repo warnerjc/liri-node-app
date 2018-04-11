@@ -183,6 +183,7 @@ require("dotenv").config();
 
    * Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the [node-spotify-api package](https://www.npmjs.com/package/node-spotify-api).
 
+# DONE
 3. `node liri.js movie-this '<movie name here>'`
 
    * This will output the following information to your terminal/bash window:
@@ -206,13 +207,13 @@ require("dotenv").config();
    
    * You'll use the request package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use `trilogy`.
 
+# DONE
 4. `node liri.js do-what-it-says`
-   
-   * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-     
-     * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
-     
-     * Feel free to change the text in that document to test out the feature for other commands.
+  * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+  
+  * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
+  
+  * Feel free to change the text in that document to test out the feature for other commands.
 
 ### BONUS
 

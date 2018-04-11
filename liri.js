@@ -5,6 +5,7 @@ require("dotenv").config();
 const Spotify = require("node-spotify-api");
 const Twitter = require("twitter");
 const request = require("request");
+const fs = require("fs");
 const keys = require("./liri-api-keys/keys");
 
 // assign keys to declared variables
@@ -18,32 +19,35 @@ for (let i = 2; i < process.argv.length; i++) {
     args.push(process.argv[i]);
 }
 
-// switch statement to run proper action block
-switch (args[0]) {
-    case "my-tweets":
-        getTweets();
-        break;
+// function with switch statement to run proper action block
+function doThisAction() {
 
-    case "spotify-this-song":
-        getSong();
-        break;
+    switch (args[0]) {
+        case "my-tweets":
+            getTweets();
+            break;
 
-    case "movie-this":
-        getMovie();
-        break;
+        case "spotify-this-song":
+            getSong();
+            break;
 
-    case "do-what-it-says":
-        getAction();
-        break;
+        case "movie-this":
+            getMovie();
+            break;
 
-    default:
-        console.log("User selected action not recognized.");
+        case "do-what-it-says":
+            getAction();
+            break;
 
+        default:
+            console.log("User selected action not recognized.");
+
+    }
 }
 
 // function to display 20 most recent user tweets
 function getTweets() {
-    var params = {
+    let params = {
         screen_name: args[1],
         count: 20,
         result_type: "recent",
@@ -119,7 +123,7 @@ function getMovie() {
         });
     } else {
 
-        var myMovie = args[1].split(" ").join("+");
+        let myMovie = args[1].split(" ").join("+");
 
         request("http://www.omdbapi.com/?t=" + myMovie + "&y=&plot=short&apikey=trilogy", function (error, response, body) {
 
@@ -138,4 +142,22 @@ function getMovie() {
 // function to display action from random.txt
 function getAction() {
 
+    fs.readFile("random.txt", "utf8", function (error, data) {
+
+        // If the code experiences any errors it will log the error to the console.
+        if (error) {
+            return console.log(error);
+        }
+
+        // Then split it by commas (to make it more readable)
+        let dataArr = data.split(",");
+
+        args[0] = dataArr[0];
+        args[1] = dataArr[1].replace(/"/g,"");
+
+        doThisAction();
+
+    });
 }
+
+doThisAction();
