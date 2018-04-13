@@ -12,8 +12,12 @@ const keys = require("./liri-api-keys/keys");
 const spotify = new Spotify(keys.spotify);
 const client = new Twitter(keys.twitter);
 
-// storage array for LIRI command line arguments
+// global storage array for LIRI command line arguments
 let args = [];
+
+// global storage strings for log file
+let log = "";
+let command = "";
 
 // store user arguments in args array
 for (let i = 2; i < process.argv.length; i++) {
@@ -48,6 +52,10 @@ function doThisAction() {
 
 // function to display 20 most recent user tweets from Twitter
 function getTweets() {
+
+    // clear global log string
+    log = "";
+
     let params = {
         screen_name: args[1],
         count: 20,
@@ -65,6 +73,10 @@ function getTweets() {
         console.log(`Tweets from ${params.screen_name}:`);
         console.log(``);
 
+        command = args[0];
+        log = log + command;
+        log = log + (`\nTweets from ${params.screen_name}:\n`);
+
         // get tweets based on assigned params
         client.get("statuses/user_timeline", params, function (error, tweets, response) {
 
@@ -72,15 +84,26 @@ function getTweets() {
             if (!error) {
                 for (let j = 0; j < tweets.length; j++) {
                     console.log(`${tweets[j].created_at}: ${tweets[j].text}`);
+                    log = log + (`${tweets[j].created_at}: ${tweets[j].text}\n`);
                 }
+
+                logData(log);
             } else {
                 console.log(`Code ${error[0].code} - ${error[0].message}`);
+                log = log + (`${tweets[j].created_at}: ${tweets[j].text}\n`);
+
+                logData(log);
             }
         });
+
     } else {
 
         console.log(`Tweets from ${args[1]}:`);
         console.log(``);
+
+        command = args[0] + " " + args[1];
+        log = log + command;
+        log = log + (`\nTweets from ${params.screen_name}:\n`);
 
         // get tweets based on assigned params
         client.get('statuses/user_timeline', params, function (error, tweets, response) {
@@ -89,13 +112,18 @@ function getTweets() {
             if (!error) {
                 for (let j = 0; j < tweets.length; j++) {
                     console.log(`${tweets[j].created_at}: ${tweets[j].text}`);
+                    log = log + `${tweets[j].created_at}: ${tweets[j].text}\n`;
                 }
+
+                logData(log);
             } else {
                 console.log(`Code ${error[0].code} - ${error[0].message}`);
+                log = log + `${tweets[j].created_at}: ${tweets[j].text}\n`;
+
+                logData(log);
             }
         });
     }
-
 }
 
 // function to display song information from Spotify
@@ -104,6 +132,7 @@ function getSong() {
     // if no song provided, default to "The Sign" by Ace of Base
     // else search Spotify for the requested song information
     if (args[1] === undefined) {
+
         // request to specific "The Sign" by Ace of Base API URL
         spotify
             .request("https://api.spotify.com/v1/tracks/0hrBpAOgrt8RXigk83LLNE")
@@ -116,6 +145,7 @@ function getSong() {
             });
     } else {
         spotify.search({ type: "track", query: args[1] }, function (err, data) {
+
             if (err) {
                 console.log(`Error occurred: ${err}`);
             } else {
@@ -130,6 +160,9 @@ function getSong() {
 
 // function to display movie information from OMDB
 function getMovie() {
+
+    // clear global log string
+    log = "";
 
     // if no movie provided, default to "Mr Nobody"
     // else search OMDB with the user provided movie
@@ -177,6 +210,18 @@ function getAction() {
         doThisAction();
 
     });
+}
+
+// function to log command line arguments & action block callbacks
+// currently only logging my-tweets
+function logData(log) {
+    var stream = fs.createWriteStream("log.txt", { flags: 'a' });
+
+    var date = new Date().toISOString();
+
+    stream.write(`${date}\n`);
+    stream.write(`${log}\n\n`);
+    stream.end();
 }
 
 // call doThisAction after command line arguments received and determine which action block to take

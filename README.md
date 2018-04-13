@@ -1,7 +1,7 @@
 # LIRI
 Language Interpretation and Recognition Interface
 
-LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a _Language_ Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
+LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a _Language_ Interpretation and Recognition Interface. LIRI is a command line node app that takes in parameters and gives you back data.
 
 ## User must provide own API keys for application to function properly
 
@@ -19,10 +19,10 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 ## LIRI Bot Commands - Current as of 4/12/2018
 LIRI currently accepts the following commands
     
-  * my-tweets `user-name` [Will return 20 most recent user Twitter tweets if username is valid]
-  * spotify-this-song `song-title` [Will return best match on Spotify if the song title is valid]
-  * movie-this `movie-title` [Will return best match on OMDB if the movie title is valid]
-  * do-what-it-says [Will read action from random.txt and execute proper action block]
+  * my-tweets `user-name` ( Will return 20 most recent user Twitter tweets if username is valid )
+  * spotify-this-song `song-title` ( Will return best match on Spotify if the song title is valid )
+  * movie-this `movie-title` ( Will return best match on OMDB if the movie title is valid )
+  * do-what-it-says  ( Will read action from random.txt and execute proper action block )
 
 ### BONUS
 
@@ -32,4 +32,5 @@ LIRI currently accepts the following commands
 
 * Do not overwrite your file each time you run a command.
 
+---
 Copyright (c) Jason Warner 2018
