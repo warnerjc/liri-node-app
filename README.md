@@ -10,10 +10,10 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
 ## Required Packages & Files
 1. .env - environment file holding user's own API keys (Spotify & Twitter)
-2. dotenv - node npm package for environment files (npm install dotenv --save)
-4. node-spotify-api - node npm package for Spotify requests (npm install --save node-spotify-api)
-5. twitter - node npm package for Twitter requests (npm install twitter)
-6. request - node npm package for http(s) requests (npm install request)
+2. dotenv - node npm package for environment files `npm install dotenv --save`
+4. node-spotify-api - node npm package for Spotify requests `npm install --save node-spotify-api`
+5. twitter - node npm package for Twitter requests `npm install twitter`
+6. request - node npm package for http(s) requests `npm install request`
 7. fs - node npm package for file system functionality
 
 ## LIRI Bot Commands - Current as of 4/12/2018
@@ -31,3 +31,5 @@ LIRI currently accepts the following commands
 * Make sure you append each command you run to the `log.txt` file. 
 
 * Do not overwrite your file each time you run a command.
+
+Copyright (c) Jason Warner 2018
