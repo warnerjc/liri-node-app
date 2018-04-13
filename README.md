@@ -24,13 +24,10 @@ LIRI currently accepts the following commands
   * movie-this `movie-title` ( Will return best match on OMDB if the movie title is valid )
   * do-what-it-says  ( Will read action from random.txt and execute proper action block )
 
-### BONUS
+### Log File - In Progress
 
-* In addition to logging the data to your terminal/bash window, output the data to a .txt file called `log.txt`.
-
-* Make sure you append each command you run to the `log.txt` file. 
-
-* Do not overwrite your file each time you run a command.
+  * Added a log file to record all user action when using the LIRI application
+  * Current functionality only extended to my-tweets 
 
 ---
 Copyright (c) Jason Warner 2018
